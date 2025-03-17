@@ -1,6 +1,6 @@
 ---
 title: "Hotel bookings - factors"
-author: "YOU"
+author: "Noah"
 date: "`r Sys.Date()`"
 output: 
   html_document: 
@@ -25,6 +25,11 @@ First, knit the document and view the following visualization. How are the month
 
 ```{r plot, fig.width=10}
 hotels %>%
+  mutate(arrival_date_month = 
+           fct_relevel(arrival_date_month, 
+              "January", "February", "March", "April",
+              "May", "June", "July", "August", "September",
+              "October", "November", "December")) %>% 
   group_by(hotel, arrival_date_month) %>%   # group by hotel type and arrival month
   summarise(mean_adr = mean(adr)) %>%       # calculate mean adr for each group
   ggplot(aes(
@@ -35,6 +40,7 @@ hotels %>%
     ) +
   geom_line() +                             # use lines to represent data
   theme_minimal() +                         # use a minimal theme
+  scale_y_continuous(labels = scales::dollar) + 
   labs(x = "Arrival month",                 # customize labels
        y = "Mean ADR (average daily rate)",
        title = "Comparison of resort and city hotel prices across months",

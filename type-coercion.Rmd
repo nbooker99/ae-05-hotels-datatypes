@@ -1,6 +1,6 @@
 ---
 title: "Type coercion"
-author: "YOU"
+author: "Noah"
 date: "`r Sys.Date()`"
 output: 
   html_document: 
